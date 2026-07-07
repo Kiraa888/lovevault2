@@ -1,0 +1,656 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Mandira — My Forever | Animesh</title>
+
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=1000&fit=crop">
+  <!-- removed preload for hero2 -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            beige: { light: '#F5EDE4', DEFAULT: '#EFE3D3', dark: '#E8D5C4' },
+            pink: { light: '#F8D7DA', DEFAULT: '#F4A3B8', dark: '#E07A8A' },
+            wood: { light: '#6B4A3A', DEFAULT: '#4A3327', dark: '#3A2518' },
+            chocolate: { light: '#D4A373', DEFAULT: '#B87D4B', dark: '#8B5A2B' },
+            cream: '#FFFDF9',
+          },
+          fontFamily: {
+            script: ['"Great Vibes"', 'cursive'],
+            names: ['"Tangerine"', 'cursive'],
+            serif: ['"Playfair Display"', 'serif'],
+            body: ['"Lora"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ===== EXISTING ANIMATIONS (preserved and updated) ===== */
+    @keyframes float { 0%,100%{transform:translateY(0px) rotate(0deg)} 50%{transform:translateY(-20px) rotate(5deg)} }
+    @keyframes floatSlow { 0%,100%{transform:translateY(0px) translateX(0px)} 33%{transform:translateY(-15px) translateX(10px)} 66%{transform:translateY(-10px) translateX(-5px)} }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes scaleIn { from{opacity:0;transform:scale(0.9)} to{opacity:1;transform:scale(1)} }
+    @keyframes drawLine { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+    @keyframes glowPulse { 0%,100%{box-shadow:0 0 20px rgba(184,125,75,0.2)} 50%{box-shadow:0 0 40px rgba(184,125,75,0.5)} }
+    @keyframes particleDrift { 0%{transform:translateY(100vh) rotate(0deg);opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{transform:translateY(-10vh) rotate(720deg);opacity:0} }
+    @keyframes gentleTilt { 0%,100%{transform:perspective(1000px) rotateY(-2deg) rotateX(1deg)} 50%{transform:perspective(1000px) rotateY(2deg) rotateX(-1deg)} }
+    @keyframes heartbeat { 0%,100%{transform:scale(1)} 14%{transform:scale(1.1)} 28%{transform:scale(1)} 42%{transform:scale(1.1)} 56%{transform:scale(1)} }
+    @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
+    @keyframes subtleBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    @keyframes numberFlipIn { 0%{opacity:0;transform:translateY(-12px) scale(0.94)} 60%{opacity:0.7;transform:translateY(2px) scale(1.01)} 100%{opacity:1;transform:translateY(0) scale(1)} }
+    @keyframes cardFloatGentle { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+    @keyframes sparkleDrift { 0%,100%{opacity:0.2;transform:translateY(0) scale(0.9)} 50%{opacity:0.7;transform:translateY(-8px) scale(1.15)} }
+    @keyframes softFadeInScale { from{opacity:0;transform:scale(0.92)} to{opacity:1;transform:scale(1)} }
+    @keyframes letterEntryFade { from{opacity:0;transform:translateY(30px) scale(0.94)} to{opacity:1;transform:translateY(0) scale(1)} }
+    @keyframes lightboxFadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes lightboxImageIn { from{opacity:0;transform:scale(0.88) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+    @keyframes invitationCardLift { from{opacity:0;transform:translateY(50px) scale(0.95)} to{opacity:1;transform:translateY(0) scale(1)} }
+    @keyframes cornerFlourishFade { from{opacity:0;transform:scale(0.7)} to{opacity:1;transform:scale(1)} }
+    @keyframes ornamentSpinSlow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+    /* ===== NEW INTRO ANIMATIONS ===== */
+    @keyframes introFadeInText {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes introDiamondAppear {
+      from { opacity: 0; transform: rotate(45deg) scale(0.5); }
+      to { opacity: 0.7; transform: rotate(45deg) scale(1); }
+    }
+
+    .animate-float{animation:float 6s ease-in-out infinite}
+    .animate-float-slow{animation:floatSlow 8s ease-in-out infinite}
+    .animate-fade-in-up{animation:fadeInUp 1s cubic-bezier(0.22,1,0.36,1) forwards}
+    .animate-fade-in{animation:fadeIn 1s ease-out forwards}
+    .animate-scale-in{animation:scaleIn 1s cubic-bezier(0.22,1,0.36,1) forwards}
+    .animate-glow-pulse{animation:glowPulse 3s ease-in-out infinite}
+    .animate-gentle-tilt{animation:gentleTilt 6s ease-in-out infinite}
+    .animate-heartbeat{animation:heartbeat 2s ease-in-out infinite}
+    .animate-subtle-bounce{animation:subtleBounce 2.5s ease-in-out infinite}
+    .animate-number-flip{animation:numberFlipIn 0.55s cubic-bezier(0.22,1,0.36,1) forwards}
+    .animate-card-float{animation:cardFloatGentle 5s ease-in-out infinite}
+    .animate-sparkle-drift{animation:sparkleDrift 3s ease-in-out infinite}
+    .animate-soft-fade-scale{animation:softFadeInScale 1s cubic-bezier(0.22,1,0.36,1) forwards}
+    .animate-letter-entry{animation:letterEntryFade 0.9s cubic-bezier(0.22,1,0.36,1) forwards}
+    .animate-lightbox-fade{animation:lightboxFadeIn 0.35s ease-out forwards}
+    .animate-lightbox-image{animation:lightboxImageIn 0.5s cubic-bezier(0.22,1,0.36,1) forwards}
+    .animate-invitation-card-lift{animation:invitationCardLift 1s cubic-bezier(0.22,1,0.36,1) forwards}
+    .animate-corner-flourish{animation:cornerFlourishFade 0.8s cubic-bezier(0.22,1,0.36,1) forwards}
+
+    .particle{position:fixed;pointer-events:none;opacity:0.6;z-index:0}
+    .scroll-reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(0.22,1,0.36,1),transform 0.8s cubic-bezier(0.22,1,0.36,1)}
+    .scroll-reveal.visible{opacity:1;transform:translateY(0)}
+
+    ::-webkit-scrollbar{width:8px}
+    ::-webkit-scrollbar-track{background:#F5EDE4}
+    ::-webkit-scrollbar-thumb{background:#B87D4B;border-radius:4px}
+    ::-webkit-scrollbar-thumb:hover{background:#8B5A2B}
+
+    html{scroll-behavior:smooth}
+    .img-zoom-container{overflow:hidden}
+    .img-zoom-container img{transition:transform 0.6s cubic-bezier(0.22,1,0.36,1)}
+    .img-zoom-container:hover img{transform:scale(1.08)}
+
+    .lightbox{position:fixed;inset:0;background:rgba(74,51,39,0.95);z-index:100;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.4s ease}
+    .lightbox.active{opacity:1;pointer-events:all}
+
+    .invitation-divider{height:1px;background:linear-gradient(90deg,transparent 0%,rgba(184,125,75,0.6) 20%,rgba(184,125,75,0.9) 50%,rgba(184,125,75,0.6) 80%,transparent 100%);transform:scaleX(0);transform-origin:center;transition:transform 1.2s cubic-bezier(0.22,1,0.36,1)}
+    .invitation-divider.revealed{transform:scaleX(1)}
+
+    .ornament-divider{display:flex;align-items:center;justify-content:center;gap:12px}
+    .ornament-divider::before,.ornament-divider::after{content:'';height:1px;background:linear-gradient(90deg,transparent,rgba(184,125,75,0.5));flex:1;max-width:60px}
+    .ornament-divider::after{background:linear-gradient(90deg,rgba(184,125,75,0.5),transparent)}
+    .ornament-diamond{width:7px;height:7px;background:#B87D4B;transform:rotate(45deg);opacity:0.7;flex-shrink:0}
+
+    .countdown-card{background:linear-gradient(180deg,#FFFDF9 0%,#FDF9F4 40%,#F5EDE4 100%);border:1.5px solid rgba(184,125,75,0.35);border-radius:20px;box-shadow:0 4px 20px rgba(74,51,39,0.06),0 1px 3px rgba(184,125,75,0.08);transition:all 0.6s cubic-bezier(0.22,1,0.36,1);position:relative;overflow:hidden}
+    .countdown-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(74,51,39,0.1),0 0 0 1px rgba(184,125,75,0.2)}
+
+    .love-card{background:linear-gradient(180deg,#FFFDF9 0%,#FDF9F4 35%,#F5EDE4 100%);border:1.5px solid rgba(184,125,75,0.3);border-radius:24px;box-shadow:0 6px 18px rgba(74,51,39,0.05);transition:all 0.5s cubic-bezier(0.22,1,0.36,1)}
+    .love-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(74,51,39,0.08)}
+
+    .letter-image-wrapper{position:relative;display:inline-block;cursor:pointer;transition:transform 0.5s cubic-bezier(0.22,1,0.36,1),box-shadow 0.5s}
+    .letter-image-wrapper:hover{transform:translateY(-3px);box-shadow:0 24px 60px rgba(74,51,39,0.15)}
+
+    .letter-lightbox-overlay{position:fixed;inset:0;z-index:200;background:rgba(30,20,15,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.4s ease}
+    .letter-lightbox-overlay.active{opacity:1;pointer-events:all}
+
+    .invitation-detail-card{background:linear-gradient(175deg,#FFFDF9 0%,#FDF9F4 25%,#F7F0E8 60%,#F5EDE4 100%);border:2px solid rgba(184,125,75,0.4);border-radius:28px;box-shadow:0 8px 40px rgba(74,51,39,0.08),0 2px 10px rgba(184,125,75,0.1),inset 0 0 80px rgba(184,125,75,0.03);position:relative;overflow:hidden}
+    .invitation-detail-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(184,125,75,0.05) 0%,transparent 60%);pointer-events:none;border-radius:28px}
+    .invitation-detail-card::after{content:'';position:absolute;top:12px;left:12px;right:12px;bottom:12px;border:1px solid rgba(184,125,75,0.18);border-radius:20px;pointer-events:none}
+
+    .section-ornament{display:flex;align-items:center;justify-content:center;gap:16px}
+    .section-ornament::before,.section-ornament::after{content:'';height:1px;background:linear-gradient(90deg,transparent,rgba(184,125,75,0.55));flex:1}
+    .section-ornament::after{background:linear-gradient(90deg,rgba(184,125,75,0.55),transparent)}
+    .section-ornament-icon{width:20px;height:20px;position:relative;flex-shrink:0}
+    .section-ornament-icon::before{content:'❦';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#B87D4B;font-size:16px;opacity:0.8}
+
+    .timeline-bullet{display:flex;align-items:flex-start;gap:14px}
+    .timeline-bullet::before{content:'';width:7px;height:7px;background:#B87D4B;border-radius:50%;flex-shrink:0;margin-top:6px;opacity:0.75}
+
+    .dress-code-box{background:rgba(255,253,249,0.7);border:1.5px solid rgba(184,125,75,0.35);border-radius:20px;padding:24px 28px;text-align:center;position:relative}
+    .dress-code-box::before{content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:40%;height:2px;background:linear-gradient(90deg,transparent,#B87D4B,transparent);border-radius:50%}
+
+    .location-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(184,125,75,0.12) 0%,rgba(184,125,75,0.06) 100%);border:1.5px solid rgba(184,125,75,0.45);border-radius:9999px;padding:12px 28px;color:#4A3327;font-family:'Playfair Display',serif;font-size:14px;letter-spacing:0.08em;transition:all 0.4s cubic-bezier(0.22,1,0.36,1);cursor:pointer;text-decoration:none}
+    .location-btn:hover{background:rgba(184,125,75,0.18);border-color:rgba(184,125,75,0.65);box-shadow:0 8px 28px rgba(184,125,75,0.2);transform:translateY(-2px)}
+
+    .gold-corner{position:absolute;width:28px;height:28px;pointer-events:none;opacity:0.6}
+    .gold-corner.top-left{top:16px;left:16px;border-top:2px solid rgba(184,125,75,0.5);border-left:2px solid rgba(184,125,75,0.5);border-top-left-radius:6px}
+    .gold-corner.top-right{top:16px;right:16px;border-top:2px solid rgba(184,125,75,0.5);border-right:2px solid rgba(184,125,75,0.5);border-top-right-radius:6px}
+    .gold-corner.bottom-left{bottom:16px;left:16px;border-bottom:2px solid rgba(184,125,75,0.5);border-left:2px solid rgba(184,125,75,0.5);border-bottom-left-radius:6px}
+    .gold-corner.bottom-right{bottom:16px;right:16px;border-bottom:2px solid rgba(184,125,75,0.5);border-right:2px solid rgba(184,125,75,0.5);border-bottom-right-radius:6px}
+
+    .hero-blur-wrapper {
+      transition: filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .hero-blur-wrapper.blurred {
+      filter: blur(6px);
+    }
+    .intro-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(160deg, #FFFDF9 0%, #F5EDE4 40%, #EFE3D3 100%);
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: all;
+    }
+    .intro-overlay.fading {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .intro-text-line {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    .intro-text-line.animate-intro-text {
+      animation: introFadeInText 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .intro-diamond-icon {
+      width: 10px;
+      height: 10px;
+      background: #B87D4B;
+      transform: rotate(45deg) scale(0.5);
+      opacity: 0;
+    }
+    .intro-diamond-icon.animate-intro-diamond {
+      animation: introDiamondAppear 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+  </style>
+</head>
+<body class="bg-cream font-body text-wood overflow-x-hidden grain-overlay">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    // ==========================================
+    // CONFIGURATION
+    // ==========================================
+    const CONFIG = {
+      myName: 'Animesh',
+      herName: 'Mandira',
+      anniversaryDate: '2026-09-23T19:00:00',
+      startDate: '2019-09-23T00:00:00',
+      
+      celebrationVenue: 'Tution, Raghunathpur',
+      celebrationPlan: 'A private Lunch, just you and me.',
+      
+      events: [
+        {
+          title: 'The Celebration',
+          date: '23 September 2026',
+          time: '9:00 AM',
+          venue: 'Tution, Raghunathpur',
+          plan: 'A Beautiful private time juat you and me.',
+          image: 'https://iili.io/CacLOxe.png',
+          link: '#'
+        },
+        {
+          title: 'Lunch Together',
+          date: '24 - 26 September 2026',
+          time: '10:00 AM',
+          venue: 'Our Favorite Restaurant',
+          plan: 'A cozy, quiet romantic Lunch to continue our beautiful moments.',
+          image: 'https://iili.io/Cac6fQj.png',
+          link: '#'
+        }
+      ],
+
+      images: {
+        hero1: 'https://iili.io/CaaEizb.png',
+        // hero2 removed
+        story1: 'https://iili.io/B7X6OZX.png',
+        story2: 'https://iili.io/qZjXvR4.jpg',
+        story3: 'https://iili.io/qQ9P7ov.png',
+        story4: 'https://iili.io/q0QEQWJ.jpg',
+        gallery: [
+          'https://iili.io/qyQaa8Q.jpg',
+          'https://iili.io/qZjXvR4.jpg',
+          'https://iili.io/BT6Ra19.jpg',
+          'https://iili.io/B5aHwW7.jpg',
+          'https://iili.io/BT6hPGn.jpg',
+          'https://iili.io/B58FZog.png',
+        ],
+        restaurant: '',
+        venuePlace: '',
+        herHouse: '',
+        yourHouse: '',
+        loveLetter: 'https://iili.io/CaRZksR.png',
+      }
+    };
+
+    // ==========================================
+    // HOOKS
+    // ==========================================
+    const useInView = (options = {}) => {
+      const ref = useRef(null);
+      const [isInView, setIsInView] = useState(false);
+      useEffect(() => {
+        const observer = new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) { setIsInView(true); observer.unobserve(entry.target); }
+        }, { threshold: 0.12, ...options });
+        if (ref.current) observer.observe(ref.current);
+        return () => observer.disconnect();
+      }, []);
+      return [ref, isInView];
+    };
+
+    const useCountdown = (targetDate) => {
+      const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, isComplete: false });
+      const [changingFields, setChangingFields] = useState({ days: false, hours: false, minutes: false, seconds: false });
+      useEffect(() => {
+        const calculate = () => {
+          const diff = new Date(targetDate) - new Date();
+          if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0, isComplete: true };
+          return { days: Math.floor(diff/(1000*60*60*24)), hours: Math.floor((diff/(1000*60*60))%24), minutes: Math.floor((diff/(1000*60))%60), seconds: Math.floor((diff/1000)%60), isComplete: false };
+        };
+        const update = () => {
+          const nt = calculate();
+          setTimeLeft(prev => {
+            const ch = {};
+            if(prev.days!==nt.days) ch.days=true;
+            if(prev.hours!==nt.hours) ch.hours=true;
+            if(prev.minutes!==nt.minutes) ch.minutes=true;
+            if(prev.seconds!==nt.seconds) ch.seconds=true;
+            if(Object.keys(ch).length>0){ setChangingFields(p=>({...p,...ch})); setTimeout(()=>setChangingFields(p=>({...p,...Object.fromEntries(Object.keys(ch).map(k=>[k,false]))})),550); }
+            return nt;
+          });
+        };
+        update();
+        const iv = setInterval(update, 1000);
+        return () => clearInterval(iv);
+      }, [targetDate]);
+      return { ...timeLeft, changingFields };
+    };
+
+    const useLoveCounter = (startDate) => {
+      const [tt, setTt] = useState({ years:0, months:0, days:0, hours:0 });
+      useEffect(() => {
+        const calc = () => {
+          const s=new Date(startDate), n=new Date();
+          let y=n.getFullYear()-s.getFullYear(), m=n.getMonth()-s.getMonth(), d=n.getDate()-s.getDate(), h=n.getHours()-s.getHours();
+          if(d<0){m--;d+=30} if(m<0){y--;m+=12} if(h<0){d--;h+=24}
+          return {years:y,months:m,days:d,hours:h};
+        };
+        setTt(calc());
+        const iv=setInterval(()=>setTt(calc()),1000*60*60);
+        return ()=>clearInterval(iv);
+      }, [startDate]);
+      return tt;
+    };
+
+    const useCountUp = (target, isActive, duration=1500) => {
+      const [count, setCount] = useState(0);
+      useEffect(() => {
+        if(!isActive) return;
+        if(target===0){setCount(0);return}
+        let st=null, af;
+        const step=(ts)=>{
+          if(!st) st=ts;
+          const p=Math.min((ts-st)/duration,1);
+          const e=1-Math.pow(1-p,3);
+          setCount(Math.floor(e*target));
+          if(p<1) af=requestAnimationFrame(step); else setCount(target);
+        };
+        af=requestAnimationFrame(step);
+        return ()=>{if(af) cancelAnimationFrame(af)};
+      }, [target,isActive,duration]);
+      return count;
+    };
+
+    // ==========================================
+    // COMPONENTS
+    // ==========================================
+    const FloatingParticles = () => {
+      const [particles] = useState(()=>Array.from({length:12},(_,i)=>({id:i,left:`${Math.random()*100}%`,size:Math.random()*16+8,duration:Math.random()*10+15,delay:Math.random()*10,type:['🌸','💖','✨','💫','🌹'][Math.floor(Math.random()*5)]})));
+      return (<div className="fixed inset-0 pointer-events-none overflow-hidden z-0">{particles.map(p=>(<div key={p.id} className="particle text-pink-light/30" style={{left:p.left,fontSize:p.size,animation:`particleDrift ${p.duration}s linear ${p.delay}s infinite`}}>{p.type}</div>))}</div>);
+    };
+
+    const PlaceholderImg = ({ src, alt, className, aspect, label, eager }) => {
+      if (!src) return (<div className={`bg-beige border-2 border-chocolate/40 border-dashed rounded-lg flex flex-col items-center justify-center ${className}`} style={{aspectRatio:aspect||'3/4'}}><div className="text-wood/50 font-serif text-center p-4"><div className="text-chocolate text-3xl mb-2">📷</div><div className="text-sm font-medium">{label||'Photo'}</div></div></div>);
+      return <img src={src} alt={alt} className={`object-cover ${className}`} loading={eager ? "eager" : "lazy"} fetchpriority={eager ? "high" : "auto"} />;
+    };
+
+    // ==========================================
+    // HERO SECTION (second hero image removed)
+    // ==========================================
+    const Hero = () => {
+      const [introActive, setIntroActive] = useState(true);
+      const [contentVisible, setContentVisible] = useState(false);
+
+      useEffect(() => {
+        const contentTimer = setTimeout(() => setContentVisible(true), 50);
+        const introTimer = setTimeout(() => setIntroActive(false), 1800);
+        return () => { clearTimeout(contentTimer); clearTimeout(introTimer); };
+      }, []);
+
+      const scrollToCountdown = () => document.getElementById('countdown')?.scrollIntoView({ behavior: 'smooth' });
+
+      return (
+        <section id="home" className="relative min-h-screen flex items-center justify-center bg-beige-light overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-beige-light via-beige to-beige-dark opacity-50" />
+          <div className="absolute top-20 left-10 text-pink-light/20 text-6xl animate-float-slow">🌹</div>
+          <div className="absolute bottom-40 right-20 text-chocolate/20 text-5xl animate-float" style={{ animationDelay: '2s' }}>💖</div>
+          <div className="absolute top-40 right-40 text-pink-light/15 text-4xl animate-float-slow" style={{ animationDelay: '4s' }}>✨</div>
+
+          <div className={`relative z-10 max-w-7xl mx-auto px-6 py-16 md:py-24 grid md:grid-cols-2 gap-10 md:gap-16 items-center w-full hero-blur-wrapper ${introActive ? 'blurred' : ''}`}>
+            <div className={`relative transition-all duration-1000 ${contentVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+              <div className="relative mx-auto max-w-md">
+                <div className="hero-photo-frame rounded-2xl overflow-hidden shadow-2xl shadow-wood/10 border-2 border-chocolate/25 transform rotate-1">
+                  <PlaceholderImg src={CONFIG.images.hero1} alt="Us" className="w-full h-[420px] md:h-[520px] lg:h-[580px]" aspect="3/4" label="Our Photo 1" eager={true} />
+                </div>
+                {/* Second photo frame removed */}
+                {/* Decorative corners remain for the main image */}
+                <div className="absolute -top-5 -left-5 w-14 h-14 border-t-2 border-l-2 border-chocolate/50 rounded-tl-3xl pointer-events-none" />
+                <div className="absolute -bottom-5 -right-5 w-14 h-14 border-b-2 border-r-2 border-chocolate/50 rounded-br-3xl pointer-events-none" />
+              </div>
+            </div>
+
+            <div className={`text-center md:text-left space-y-6 transition-all duration-1000 ${contentVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+              <div className="flex items-center justify-center md:justify-start space-x-4 mb-2">
+                <div className="h-px w-10 bg-chocolate/50" /><span className="text-chocolate uppercase tracking-[0.28em] text-[11px] md:text-xs font-serif">YOU ARE INVITED</span><div className="h-px w-10 bg-chocolate/50" />
+              </div>
+              <p className="font-serif italic text-pink-dark text-base md:text-lg tracking-wide text-center md:text-left">The Celebration Begins With You</p>
+              <div className={`invitation-divider w-full max-w-xs mx-auto md:mx-0 my-4 ${contentVisible ? 'revealed' : ''}`} />
+              <div className="space-y-1 md:space-y-2">
+                <h1 className="font-names text-6xl md:text-7xl lg:text-8xl text-wood font-bold leading-none tracking-wide">
+                  {CONFIG.myName}
+                </h1>
+                <p className="font-script text-4xl md:text-5xl lg:text-6xl text-chocolate leading-none py-2">
+                  Weds
+                </p>
+                <h1 className="font-names text-6xl md:text-7xl lg:text-8xl text-wood font-bold leading-none tracking-wide">
+                  {CONFIG.herName}
+                </h1>
+              </div>
+              <div className={`invitation-divider w-full max-w-xs mx-auto md:mx-0 my-4 ${contentVisible ? 'revealed' : ''}`} />
+              <p className="font-body italic text-wood-light text-base md:text-lg leading-relaxed max-w-md mx-auto md:mx-0 text-center md:text-left">Celebrating a love that grows stronger with every heartbeat.</p>
+              <div className={`inline-flex flex-col items-center badge-pill px-8 py-3 md:px-10 md:py-4 mt-4 transition-all duration-700 ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+                <span className="text-chocolate uppercase tracking-[0.22em] text-[10px] md:text-xs font-serif">Together Since</span>
+                <span className="font-serif text-wood text-sm md:text-base mt-0.5 font-medium">23 September 2019</span>
+              </div>
+              <div className={`pt-8 md:pt-10 transition-all duration-700 ${contentVisible ? 'opacity-100' : 'opacity-0'}`}>
+                <button onClick={scrollToCountdown} className="group flex flex-col items-center text-chocolate/50 hover:text-chocolate transition-colors duration-500 mx-auto md:mx-0 md:items-start">
+                  <span className="text-[10px] md:text-xs tracking-[0.25em] uppercase font-serif mb-2 block">Begin Our Journey</span>
+                  <svg className="w-5 h-5 animate-subtle-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className={`intro-overlay ${!introActive ? 'fading' : ''}`}>
+            <div className="text-center px-6 relative">
+              <div className={`intro-diamond-icon mx-auto mb-10 ${introActive ? 'animate-intro-diamond' : ''}`} style={{ animationDelay: '0.1s' }} />
+              <div className={`intro-text-line ${introActive ? 'animate-intro-text' : ''}`} style={{ animationDelay: '0.15s' }}>
+                <span className="font-serif text-xs md:text-sm uppercase tracking-[0.35em] text-chocolate block mb-8">YOU ARE INVITED</span>
+              </div>
+              <div className={`intro-text-line ${introActive ? 'animate-intro-text' : ''}`} style={{ animationDelay: '0.5s' }}>
+                <span className="font-serif italic text-xl md:text-2xl lg:text-3xl text-pink-dark tracking-wide">The Celebration Begins With You</span>
+              </div>
+              <div className={`intro-diamond-icon mx-auto mt-10 ${introActive ? 'animate-intro-diamond' : ''}`} style={{ animationDelay: '0.4s' }} />
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // ==========================================
+    // COUNTDOWN SECTION
+    // ==========================================
+    const Countdown = () => {
+      const [ref, inView] = useInView();
+      const { days, hours, minutes, seconds, isComplete, changingFields } = useCountdown(CONFIG.anniversaryDate);
+      const [showCelebration, setShowCelebration] = useState(false);
+      const prevRef = useRef(false);
+      useEffect(()=>{if(isComplete&&!prevRef.current){prevRef.current=true;const t=setTimeout(()=>setShowCelebration(true),600);return ()=>clearTimeout(t)}if(!isComplete){prevRef.current=false;setShowCelebration(false)}},[isComplete]);
+      const units=[{label:'Days',value:days,key:'days'},{label:'Hours',value:hours,key:'hours'},{label:'Minutes',value:minutes,key:'minutes'},{label:'Seconds',value:seconds,key:'seconds'}];
+      const petals=Array.from({length:20},(_,i)=>({id:i,left:`${Math.random()*100}%`,delay:`${Math.random()*8}s`,duration:`${Math.random()*6+8}s`,size:Math.random()*18+10}));
+      if(showCelebration&&isComplete){return (<section id="countdown" className="py-24 bg-beige relative overflow-hidden min-h-[70vh] flex items-center" ref={ref}>{petals.map(p=><div key={p.id} className="celebration-petal" style={{left:p.left,top:'-5vh',fontSize:`${p.size}px`,animation:`petalFall ${p.duration} ${p.delay} linear infinite`}}>🌸</div>)}<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(248,215,218,0.3)_0%,_transparent_60%)]" /><div className="max-w-2xl mx-auto px-6 relative z-10 text-center"><div className="animate-soft-fade-scale"><div className="ornament-divider mb-8"><div className="ornament-diamond" /><div className="ornament-diamond" style={{width:'5px',height:'5px',opacity:0.5}} /><div className="ornament-diamond" /></div><span className="text-chocolate uppercase tracking-[0.35em] text-xs md:text-sm font-serif block mb-6">Today Is Our Day</span><div className="w-16 h-16 md:w-20 md:h-20 mx-auto rounded-full border-2 border-chocolate/60 flex items-center justify-center bg-cream/80 backdrop-blur-sm animate-celebration-glow mb-8"><span className="text-3xl md:text-4xl">❤️</span></div><h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-wood italic mb-4">Happy Anniversary</h2><div className="invitation-divider w-64 mx-auto my-6 revealed" /><p className="font-script text-4xl md:text-5xl text-chocolate mt-4">{CONFIG.myName} <span className="text-pink-dark">&</span> {CONFIG.herName}</p></div></div></section>)}
+      return (<section id="countdown" className="py-24 bg-beige relative overflow-hidden" ref={ref}><div className="absolute inset-0 pointer-events-none"><div className="absolute top-12 left-[8%] text-chocolate/8 text-7xl font-serif select-none">❦</div><div className="absolute top-20 right-[10%] text-pink-light/12 text-5xl font-serif select-none">❦</div></div><div className="max-w-5xl mx-auto px-6 relative z-10"><div className={`text-center mb-16 transition-all duration-1000 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`}><div className="ornament-divider mb-6"><div className="ornament-diamond" /><div className="ornament-diamond" style={{width:'5px',height:'5px',opacity:0.5}} /><div className="ornament-diamond" /></div><span className="text-chocolate uppercase tracking-[0.35em] text-xs font-serif block mb-5">COUNTING DOWN TO OUR CELEBRATION</span><h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-wood italic leading-tight">Every Second Brings Us Closer</h2><div className="w-20 h-px bg-gradient-to-r from-transparent via-chocolate/60 to-transparent mx-auto mt-7 mb-7" /><p className="font-body text-wood-light italic text-base md:text-lg max-w-[550px] mx-auto leading-relaxed">Every passing moment brings us one heartbeat closer to our celebration.</p></div><div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8">{units.map((u,i)=>(<div key={u.label} className={`transition-all duration-800 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`} style={{transitionDelay:`${i*120}ms`,animation:inView?`cardFloatGentle 5s ease-in-out infinite`:'none',animationDelay:`${i*0.8}s`}}><div className="countdown-card p-5 md:p-7 lg:p-9 text-center group"><div className="relative z-10"><div className={`countdown-number font-serif text-5xl md:text-6xl lg:text-7xl text-wood mb-3 font-medium tracking-tight ${changingFields[u.key]?'changing':''}`}>{String(u.value).padStart(2,'0')}</div><div className="text-chocolate/80 uppercase tracking-[0.22em] text-[10px] md:text-xs font-serif">{u.label}</div></div></div></div>))}</div><div className={`mt-16 md:mt-20 text-center transition-all duration-1000 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`} style={{transitionDelay:'500ms'}}><div className="ornament-divider mb-8"><div className="ornament-diamond" /><div className="ornament-diamond" style={{width:'5px',height:'5px',opacity:0.5}} /><div className="ornament-diamond" /></div><div className="inline-block bg-cream/80 backdrop-blur-sm rounded-2xl border border-chocolate/25 px-8 md:px-14 py-7 md:py-10 shadow-lg shadow-wood/5"><p className="font-serif text-2xl md:text-3xl lg:text-4xl text-wood font-medium tracking-tight">23 September 2026</p><div className="flex items-center justify-center gap-4 my-4"><span className="h-px w-10 bg-chocolate/40" /><span className="font-serif text-xl md:text-2xl text-chocolate">9:00 AM</span><span className="h-px w-10 bg-chocolate/40" /></div><p className="font-serif italic text-pink-dark text-base md:text-lg tracking-wide">Our Celebration Begins</p></div><div className="ornament-divider mt-8"><div className="ornament-diamond" /><div className="ornament-diamond" style={{width:'5px',height:'5px',opacity:0.5}} /><div className="ornament-diamond" /></div></div></div></section>);
+    };
+
+    // ==========================================
+    // LOVE COUNTER SECTION
+    // ==========================================
+    const LoveCounter = () => {
+      const [ref, inView] = useInView();
+      const tt = useLoveCounter(CONFIG.startDate);
+      const [td, setTd] = useState(0);
+      useEffect(()=>{const c=()=>{const s=new Date(CONFIG.startDate),n=new Date();return Math.floor((n-s)/(1000*60*60*24))};setTd(c());const iv=setInterval(()=>setTd(c()),1000*60*60);return ()=>clearInterval(iv)},[]);
+      const dy=useCountUp(tt.years,inView,1500);const dm=useCountUp(tt.months,inView,1500);const dd=useCountUp(tt.days,inView,1500);const dh=useCountUp(tt.hours,inView,1500);const dT=useCountUp(td,inView,2000);
+      const stats=[{label:'Years',value:dy,pad:false},{label:'Months',value:dm,pad:true},{label:'Days',value:dd,pad:true},{label:'Hours',value:dh,pad:true}];
+      return (<section className="py-24 bg-gradient-to-b from-beige to-pink-light/20 relative overflow-hidden" ref={ref}><div className="absolute inset-0 pointer-events-none"><div className="absolute top-16 left-[10%] text-chocolate/6 text-6xl font-serif select-none">❦</div><div className="absolute bottom-20 right-[8%] text-pink-light/10 text-5xl font-serif select-none">❦</div></div><div className="max-w-5xl mx-auto px-6 relative z-10"><div className={`text-center mb-16 transition-all duration-1000 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`}><div className="ornament-divider mb-6"><div className="ornament-diamond" /><div className="ornament-diamond" style={{width:'5px',height:'5px',opacity:0.5}} /><div className="ornament-diamond" /></div><span className="text-chocolate uppercase tracking-[0.35em] text-xs font-serif block mb-5">EVERY MOMENT MATTERS</span><h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-wood italic leading-tight">Our Journey Together</h2><div className="w-20 h-px bg-gradient-to-r from-transparent via-chocolate/60 to-transparent mx-auto mt-7 mb-7" /><p className="font-serif italic text-wood-light/80 text-base md:text-lg max-w-[600px] mx-auto leading-relaxed">Every passing day becomes another beautiful chapter in our story.</p></div><div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8">{stats.map((s,i)=>(<div key={s.label} className={`transition-all duration-800 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`} style={{transitionDelay:`${i*120}ms`}}><div className="love-card p-5 md:p-7 lg:p-9 text-center group"><div className="relative z-10"><div className="card-number font-serif text-5xl md:text-6xl lg:text-7xl text-wood mb-3 font-medium tracking-tight">{s.pad?String(s.value).padStart(2,'0'):s.value}</div><div className="text-chocolate/80 uppercase tracking-[0.25em] text-[10px] md:text-xs font-serif">{s.label}</div></div></div></div>))}</div><div className={`mt-16 md:mt-20 text-center transition-all duration-1000 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`} style={{transitionDelay:'550ms'}}><div className="ornament-divider mb-8"><div className="ornament-diamond" /><div className="ornament-diamond" style={{width:'5px',height:'5px',opacity:0.5}} /><div className="ornament-diamond" /></div><div className="inline-block bg-cream/80 backdrop-blur-sm rounded-2xl border border-chocolate/20 px-8 md:px-12 py-6 md:py-8 shadow-lg shadow-wood/5"><p className="font-serif text-lg md:text-xl lg:text-2xl text-wood-light italic tracking-wide leading-relaxed">Together for <span className="text-chocolate font-medium">{dT.toLocaleString()}</span> beautiful days<span className="text-pink-dark/60 ml-1">❤️</span></p></div></div></div></section>);
+    };
+
+    // ==========================================
+    // OUR STORY SECTION
+    // ==========================================
+    const OurStory = () => {
+      const [ref, inView] = useInView();
+      const milestones=[{date:'23 September 2019',title:'The Day Everything Changed',desc:'I saw you, and somehow I knew — my life would never be the same.',img:CONFIG.images.story1,side:'left'},{date:'24 December 2023',title:'Our First Date',desc:'I was nervous. You were perfect. We talked until we reach home.',img:CONFIG.images.story2,side:'right'},{date:'29 December 2025',title:'Our First Rasoi',desc:'The day i know that you did not just impresd me but also our family.',img:CONFIG.images.story3,side:'left'},{date:'Every Single Day',title:'Falling More in Love',desc:'Every morning text, every shared silence, every time you laugh at my jokes.',img:CONFIG.images.story4,side:'right'}];
+      return (<section id="story" className="py-24 bg-cream relative overflow-hidden" ref={ref}><div className="absolute inset-0 pointer-events-none"><div className="absolute top-16 left-[5%] text-chocolate/6 text-6xl font-serif select-none">❦</div></div><div className="max-w-6xl mx-auto px-6 relative z-10"><div className={`text-center mb-20 transition-all duration-1000 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`}><div className="ornament-divider mb-6"><div className="ornament-diamond" /><div className="ornament-diamond" style={{width:'5px',height:'5px',opacity:0.5}} /><div className="ornament-diamond" /></div><span className="text-chocolate uppercase tracking-[0.35em] text-xs font-serif block mb-4">THE STORY OF US</span><h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-wood italic leading-tight">A Journey Written by Love</h2><div className="w-24 h-px bg-gradient-to-r from-transparent via-chocolate/60 to-transparent mx-auto mt-6" /></div><div className="relative"><div className={`hidden md:block timeline-line ${inView?'visible':''}`} /><div className="space-y-16 md:space-y-24">{milestones.map((m,i)=>(<div key={i} className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-16 ${m.side==='right'?'md:flex-row-reverse':''}`}><div className={`flex-1 w-full transition-all duration-1000 ${inView?'opacity-100 translate-x-0 scale-100':m.side==='left'?'opacity-0 -translate-x-12 scale-95':'opacity-0 translate-x-12 scale-95'}`} style={{transitionDelay:`${i*200}ms`}}><div className="rounded-2xl overflow-hidden shadow-xl shadow-wood/5 border border-chocolate/20 img-zoom-container group"><PlaceholderImg src={m.img} alt={m.title} className="w-full h-64 md:h-80 transition-transform duration-700 ease-out group-hover:scale-105" aspect="16/9" label={m.title} /></div></div><div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-chocolate border-4 border-cream shadow-lg z-10 animate-glow-pulse" style={{animationDelay:`${i*0.5}s`}} /><div className={`flex-1 w-full text-center md:text-left ${m.side==='right'?'md:text-right':''} transition-all duration-1000 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`} style={{transitionDelay:`${i*200+150}ms`}}><span className="text-chocolate font-serif text-sm tracking-widest uppercase">{m.date}</span><h3 className="font-script text-3xl md:text-4xl text-wood mt-2 mb-4">{m.title}</h3><p className="font-body text-wood-light leading-relaxed max-w-md mx-auto md:mx-0">{m.desc}</p></div></div>))}</div><div className={`mt-20 md:mt-28 text-center transition-all duration-1000 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`} style={{transitionDelay:'900ms'}}><div className="ornament-divider mb-8"><div className="ornament-diamond" /><div className="ornament-diamond" style={{width:'5px',height:'5px',opacity:0.5}} /><div className="ornament-diamond" /></div><h3 className="font-script text-3xl md:text-4xl text-wood mb-4">And This Is Only The Beginning...</h3><p className="font-serif italic text-wood-light/80 text-base md:text-lg max-w-lg mx-auto leading-relaxed">Our most beautiful memories are still waiting to be written.</p><div className="mt-8 flex items-center justify-center gap-4"><div className="h-px w-12 bg-gradient-to-r from-transparent to-chocolate/40" /><div className="w-6 h-6 rounded-full border border-chocolate/50 flex items-center justify-center bg-cream"><span className="text-pink-dark text-xs">❤️</span></div><div className="h-px w-12 bg-gradient-to-l from-transparent to-chocolate/40" /></div></div></div></div></section>);
+    };
+
+    // ==========================================
+    // LOVE LETTER SECTION
+    // ==========================================
+    const LoveLetter = () => {
+      const [ref, inView] = useInView();
+      const [lightboxOpen, setLightboxOpen] = useState(false);
+      const [zoomed, setZoomed] = useState(false);
+      useEffect(()=>{if(lightboxOpen){document.body.style.overflow='hidden'}else{document.body.style.overflow=''};return ()=>{document.body.style.overflow=''}},[lightboxOpen]);
+      return (<section id="letter" className="py-24 bg-gradient-to-b from-cream via-beige-light to-beige relative overflow-hidden" ref={ref}><div className="absolute inset-0 pointer-events-none"><div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[600px] bg-[radial-gradient(ellipse_at_center,_rgba(184,125,75,0.12)_0%,_transparent_70%)]" /><div className="absolute top-[20%] left-[18%] w-1 h-1 bg-chocolate/20 rounded-full animate-sparkle-drift" /></div><div className="max-w-3xl mx-auto px-6 relative z-10"><div className={`text-center mb-12 transition-all duration-1000 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`}><span className="text-pink-dark uppercase tracking-[0.3em] text-xs font-serif block mb-4">MY HEART, IN WORDS</span><h2 className="font-serif text-4xl md:text-5xl text-wood italic">A Letter to You</h2><div className="w-16 h-px bg-pink mx-auto mt-6" /></div><div className={`transition-all duration-1000 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`} style={{transitionDelay:'200ms'}}><div className="flex justify-center"><div className="letter-image-wrapper max-w-[320px] sm:max-w-[380px] md:max-w-[440px] lg:max-w-[500px] w-full" onClick={()=>{setLightboxOpen(true);setZoomed(false)}} role="button" tabIndex={0} onKeyDown={e=>{if(e.key==='Enter'){setLightboxOpen(true);setZoomed(false)}}} aria-label="Open handwritten love letter"><div className="relative rounded-2xl overflow-hidden border-2 border-chocolate/30 shadow-2xl shadow-wood/8"><img src={CONFIG.images.loveLetter} alt="Handwritten love letter" className="w-full h-auto block" style={{aspectRatio:'9/16'}} /></div></div></div><p className="text-center mt-6 font-serif italic text-wood-light/60 text-sm tracking-wide">Tap the letter to read it closer</p></div></div><div className={`letter-lightbox-overlay ${lightboxOpen?'active':''}`} onClick={()=>{setLightboxOpen(false);setZoomed(false)}}><div className="letter-lightbox-content" onClick={e=>e.stopPropagation()}><img src={CONFIG.images.loveLetter} alt="Handwritten love letter — full view" className={`${zoomed?'zoomed':''}`} onClick={e=>{e.stopPropagation();setZoomed(p=>!p)}} /><button onClick={()=>{setLightboxOpen(false);setZoomed(false)}} className="absolute -top-12 right-0 md:-top-14 md:-right-2 text-cream/70 hover:text-cream transition-colors duration-300 text-2xl md:text-3xl font-serif leading-none p-2" aria-label="Close letter">✕</button></div></div></section>);
+    };
+
+    // ==========================================
+    // PLACES / INVITATION DETAILS SECTION
+    // ==========================================
+    const Places = () => {
+      const [ref, inView] = useInView();
+      const eveningItems = ['Welcome & Greetings','Cake Cutting Ceremony','Anniversary Celebration','Lunch Together','A Beautiful DayFull of Memories'];
+      
+      return (
+        <section id="places" className="py-24 bg-cream relative overflow-hidden" ref={ref}>
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-12 left-[6%] text-chocolate/5 text-7xl font-serif select-none">❦</div>
+            <div className="absolute top-24 right-[8%] text-pink-light/8 text-5xl font-serif select-none">❦</div>
+            <div className="absolute bottom-20 left-[10%] text-chocolate/4 text-6xl font-serif select-none">✦</div>
+            <div className="absolute bottom-32 right-[6%] text-pink-light/7 text-4xl font-serif select-none">✦</div>
+          </div>
+          
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+            <div className={`text-center mb-14 md:mb-16 transition-all duration-1000 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`}>
+              <div className="ornament-divider mb-6"><div className="ornament-diamond" /><div className="ornament-diamond" style={{width:'5px',height:'5px',opacity:0.5}} /><div className="ornament-diamond" /></div>
+              <span className="text-chocolate uppercase tracking-[0.35em] text-xs font-serif block mb-4">CELEBRATION DETAILS</span>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-wood italic leading-tight">Our Celebration Awaits</h2>
+              <div className="w-20 h-px bg-gradient-to-r from-transparent via-chocolate/60 to-transparent mx-auto mt-6 mb-6" />
+              <p className="font-serif italic text-wood-light/75 text-base md:text-lg max-w-lg mx-auto leading-relaxed">"Every celebration becomes unforgettable because you are a part of it."</p>
+            </div>
+            
+            <div className={`transition-all duration-1000 ${inView?'opacity-100 translate-y-0 scale-100':'opacity-0 translate-y-12 scale-95'}`} style={{transitionDelay:'200ms'}}>
+              <div className="invitation-detail-card px-6 py-10 sm:px-10 sm:py-12 md:px-14 md:py-16 relative">
+                <div className={`gold-corner top-left ${inView?'opacity-60':'opacity-0'}`} />
+                <div className={`gold-corner top-right ${inView?'opacity-60':'opacity-0'}`} />
+                <div className={`gold-corner bottom-left ${inView?'opacity-60':'opacity-0'}`} />
+                <div className={`gold-corner bottom-right ${inView?'opacity-60':'opacity-0'}`} />
+                
+                <div className="relative z-10 space-y-10 md:space-y-14">
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                    <div className="text-center sm:text-left">
+                      <span className="text-chocolate/70 uppercase tracking-[0.25em] text-[10px] font-serif block mb-3">Hosted By</span>
+                      <h3 className="font-script text-3xl sm:text-4xl md:text-5xl text-wood mb-2">{CONFIG.myName}</h3>
+                    </div>
+                    <div className="text-center sm:text-right">
+                      <span className="text-chocolate/70 uppercase tracking-[0.25em] text-[10px] font-serif block mb-3">Honouring</span>
+                      <h3 className="font-script text-3xl sm:text-4xl md:text-5xl text-wood mb-2">{CONFIG.herName}</h3>
+                    </div>
+                  </div>
+                  
+                  <div className="section-ornament"><div className="section-ornament-icon" /></div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8 lg:gap-12">
+                    {CONFIG.events.map((event, index) => (
+                      <div key={index} className="flex flex-col text-center space-y-5 group">
+                        <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden border-2 border-chocolate/20 shadow-xl shadow-wood/5 relative">
+                          <img src={event.image} alt={event.venue} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+                          <div className="absolute inset-0 bg-wood/10 pointer-events-none transition-opacity duration-500 group-hover:opacity-0" />
+                        </div>
+                        
+                        <div className="space-y-4 pt-2">
+                          <span className="text-chocolate/80 uppercase tracking-[0.25em] text-[10px] font-serif border-b border-chocolate/20 pb-2 inline-block px-4">{event.title}</span>
+                          
+                          <div className="flex flex-col items-center gap-2">
+                            <div className="flex items-center gap-2">
+                              <svg className="w-4 h-4 text-chocolate/60 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                              <p className="font-serif text-lg sm:text-xl text-wood font-medium">{event.date}</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <svg className="w-4 h-4 text-chocolate/60 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                              <p className="font-serif text-base sm:text-lg text-wood">{event.time}</p>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <p className="font-serif text-lg sm:text-xl text-wood font-medium px-2">{event.venue}</p>
+                            <p className="font-body text-wood-light/70 text-sm mt-2 max-w-[280px] mx-auto leading-relaxed">{event.plan}</p>
+                          </div>
+                          
+                          <div className="pt-3">
+                            <a href={event.link} className="location-btn" onClick={e=>e.preventDefault()}>
+                              <svg className="w-4 h-4 text-chocolate" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6 3m-6-3V7m6 10l5.447 2.724A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4" /></svg>
+                              View Location
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="section-ornament"><div className="section-ornament-icon" /></div>
+                  
+                  <div className="text-center space-y-5">
+                    <span className="text-chocolate/70 uppercase tracking-[0.25em] text-[10px] font-serif block">DayCelebration</span>
+                    <div className="inline-block text-left space-y-3">
+                      {eveningItems.map((item,i)=>(
+                        <div key={i} className="timeline-bullet">
+                          <span className="font-body text-wood-light text-sm sm:text-base">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="section-ornament"><div className="section-ornament-icon" /></div>
+                  
+                  <div className="dress-code-box mx-auto max-w-sm">
+                    <span className="text-chocolate/70 uppercase tracking-[0.25em] text-[10px] font-serif block mb-3">Dress Code</span>
+                    <p className="font-serif italic text-wood-light text-sm sm:text-base leading-relaxed">Bring your beautiful smile.<br />Everything else is already perfect.</p>
+                  </div>
+                  
+                  <div className="text-center space-y-4 pt-2">
+                    <p className="font-serif text-lg sm:text-xl md:text-2xl text-wood italic leading-relaxed">Your Presence Will Make This Celebration Complete</p>
+                    <div className="w-16 h-px bg-gradient-to-r from-transparent via-chocolate/50 to-transparent mx-auto" />
+                    <p className="font-body text-wood-light/70 italic text-xs sm:text-sm max-w-sm mx-auto leading-relaxed">"The most precious gift is celebrating this beautiful journey together."</p>
+                    <div className="pt-2">
+                      <span className="inline-block text-chocolate text-lg animate-heartbeat">❤️</span>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // ==========================================
+    // GALLERY SECTION
+    // ==========================================
+    const Gallery = () => {
+      const [ref, inView] = useInView();
+      const [lightbox, setLightbox] = useState(null);
+      const images = CONFIG.images.gallery;
+      return (<section id="gallery" className="py-24 bg-beige-light relative" ref={ref}><div className="max-w-7xl mx-auto px-6"><div className={`text-center mb-16 transition-all duration-1000 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`}><span className="text-chocolate uppercase tracking-[0.3em] text-xs font-serif block mb-4">Captured Forever</span><h2 className="font-serif text-4xl md:text-5xl text-wood italic">Moments With You</h2><div className="w-16 h-px bg-chocolate mx-auto mt-6" /></div><div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">{images.map((img,i)=>(<div key={i} className={`break-inside-avoid transition-all duration-700 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`} style={{transitionDelay:`${i*100}ms`}}><div className="group relative rounded-xl overflow-hidden shadow-lg shadow-wood/10 cursor-pointer img-zoom-container border border-chocolate/10" onClick={()=>setLightbox(img)}><PlaceholderImg src={img} alt={`Memory ${i+1}`} className="w-full" aspect={i%2===0?'3/4':'4/3'} label={`Memory ${i+1}`} /></div></div>))}</div></div><div className={`lightbox ${lightbox?'active':''}`} onClick={()=>setLightbox(null)}>{lightbox&&(<div className="relative max-w-5xl max-h-[90vh] mx-4"><img src={lightbox} alt="Full view" className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl" /><button className="absolute -top-12 right-0 text-cream/80 hover:text-cream text-2xl" onClick={()=>setLightbox(null)}>✕</button></div>)}</div></section>);
+    };
+
+    // ==========================================
+    // CELEBRATE SECTION
+    // ==========================================
+    const Celebrate = () => {
+      const [ref, inView] = useInView();
+      const [saidYes, setSaidYes] = useState(false);
+      return (<section id="celebrate" className="py-24 bg-gradient-to-b from-beige-light to-beige relative overflow-hidden" ref={ref}><div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(248,215,218,0.4)_0%,_transparent_70%)]" /><div className="max-w-3xl mx-auto px-6 relative z-10"><div className={`text-center mb-12 transition-all duration-1000 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`}><span className="text-pink-dark uppercase tracking-[0.3em] text-xs font-serif block mb-4">This Is For You</span><h2 className="font-serif text-4xl md:text-5xl text-wood italic">Will You Celebrate With Me?</h2><div className="w-16 h-px bg-pink mx-auto mt-6 mb-8" /></div><div className={`bg-cream rounded-3xl shadow-2xl shadow-wood/10 border border-pink/20 p-8 md:p-12 transition-all duration-1000 ${inView?'opacity-100 translate-y-0':'opacity-0 translate-y-8'}`} style={{transitionDelay:'200ms'}}>{!saidYes?(<div className="text-center space-y-8"><div className="inline-block bg-beige-light rounded-2xl p-6 border border-chocolate/20"><span className="text-chocolate text-xs uppercase tracking-widest font-serif block mb-2">The Plan</span><h3 className="font-serif text-2xl text-wood mb-2">{CONFIG.celebrationVenue}</h3><p className="font-body text-wood-light text-sm">{CONFIG.celebrationPlan}</p><p className="font-serif text-chocolate mt-3 text-sm">23 September 2026</p></div><button onClick={()=>setSaidYes(true)} className="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-chocolate to-chocolate-dark text-cream font-serif tracking-widest uppercase text-sm rounded-full shadow-lg shadow-chocolate/30 hover:shadow-chocolate/50 transition-all duration-300 hover:scale-105 animate-glow-pulse"><span className="mr-2">Yes, I Will</span><span className="animate-heartbeat">❤️</span></button></div>):(<div className="text-center py-8 animate-scale-in"><div className="w-24 h-24 rounded-full bg-beige-light border-2 border-chocolate flex items-center justify-center mx-auto mb-6 animate-glow-pulse"><span className="text-5xl">💖</span></div><h3 className="font-script text-5xl text-wood mb-4">You Said Yes!</h3><p className="font-serif text-chocolate text-sm tracking-wider uppercase">I love you, {CONFIG.herName}. See you on the 23rd.</p></div>)}</div></div></section>);
+    };
+
+    // ==========================================
+    // FOOTER SECTION
+    // ==========================================
+    const Footer = () => (
+      <footer className="py-16 bg-wood text-cream/80"><div className="max-w-4xl mx-auto px-6 text-center"><div className="w-16 h-16 mx-auto rounded-full border-2 border-chocolate/60 flex items-center justify-center mb-6 bg-wood-light"><span className="font-script text-3xl text-chocolate mt-1">A&M</span></div><p className="font-serif text-2xl md:text-3xl italic text-cream/90 mb-2">{CONFIG.myName} & {CONFIG.herName}</p><p className="font-serif text-chocolate tracking-widest text-sm uppercase mb-8">Forever & Always</p><div className="w-24 h-px bg-gradient-to-r from-transparent via-chocolate/50 to-transparent mx-auto mb-8" /><p className="font-body italic text-cream/60 text-sm max-w-md mx-auto leading-relaxed">"I made this for you because you are worth every late night, every line of code, and every heartbeat I poured into it."</p><p className="mt-8 text-cream/40 text-xs font-serif tracking-wider">Made with love, by {CONFIG.myName}, for {CONFIG.herName}</p></div></footer>
+    );
+
+    // ==========================================
+    // APP INITIALIZATION
+    // ==========================================
+    const App = () => {
+      return (
+        <div className="relative">
+          <FloatingParticles />
+          <Hero />
+          <Countdown />
+          <LoveCounter />
+          <OurStory />
+          <LoveLetter />
+          <Places />
+          <Gallery />
+          <Celebrate />
+          <Footer />
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
