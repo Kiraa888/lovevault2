@@ -377,7 +377,7 @@ function closeInvitation() {
 function goToAnniversary() {
   const exit = document.getElementById("cinematicExit");
   exit.classList.add("active");
-  setTimeout(() => { window.location.href = "/aniversary/index.html"; }, 950);
+  setTimeout(() => { window.location.href = "aniversary/index.html"; }, 950);
 }
 
 invitationOverlay.addEventListener("click", e => { if (e.target === invitationOverlay) closeInvitation(); });
