@@ -1,0 +1,41 @@
+{
+  "name": "Love Vault - ANIDIRA",
+  "short_name": "Love Vault",
+  "description": "Our Private Love Story & Memories since 23 September 2019",
+  "start_url": "/love-vault/",
+  "scope": "/love-vault/",
+  "display": "standalone",
+  "background_color": "#0c0808",
+  "theme_color": "#0c0808",
+  "orientation": "portrait-primary",
+  "categories": ["lifestyle", "personalization"],
+  "lang": "en-IN",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-apple.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}
