@@ -1,7 +1,7 @@
 // Love Vault - Service Worker
 // Version 1.1
 
-const CACHE_NAME = 'love-vault-v2.2';
+const CACHE_NAME = 'love-vault-v2.3';
 const RUNTIME_CACHE = 'love-vault-runtime';
 
 // Files to cache immediately on install
