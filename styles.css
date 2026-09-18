@@ -477,3 +477,25 @@ a:focus-visible, button:focus-visible, .box:focus-visible, .read-more-btn:focus-
 .pin-key:focus-visible, .sn-item:focus-visible, .dot:focus-visible, #invitationSeal:focus-visible {
   outline: 2px solid var(--champagne); outline-offset: 3px; border-radius: 8px;
 }
+
+/* ─── CINEMATIC VIDEO PRELOADER (desktop/tablet only, post-login) ─── */
+.video-preloader {
+  position: fixed; inset: 0; z-index: 100000;
+  display: none; align-items: center; justify-content: center;
+  background: #000; overflow: hidden;
+  transform: translateY(0);
+  transition: transform 1.2s cubic-bezier(0.77, 0, 0.18, 1);
+  will-change: transform;
+}
+.video-preloader video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
+.video-preloader.exit { transform: translateY(-100%); }
+
+/* Belt-and-suspenders: mobile never renders the preloader even if JS logic changes later */
+@media (max-width: 767px) {
+  .video-preloader { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-preloader { transition: opacity 0.4s ease; }
+  .video-preloader.exit { transform: none; opacity: 0; }
+}
