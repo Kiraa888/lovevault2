@@ -400,7 +400,7 @@ function startVideoPreloader() {
     preloaderVideo.addEventListener("ended", onDone, { once: true });
     preloaderVideo.addEventListener("error", onDone, { once: true });
 
-    preloaderVideo.src = "preloader.mp4";
+    preloaderVideo.src = "gemini_generated_video_d58a1655.mp4";
     preloaderVideo.load();
     preloaderVideo.currentTime = 0;
 
