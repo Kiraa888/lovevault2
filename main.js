@@ -245,16 +245,51 @@ function updateIndicator(el) {
   sidenav.style.setProperty('--item-h', `${eRect.height}px`);
 }
 
+let navClickLock = false, navClickLockTimer = null;
+
 snItems.forEach(item => {
   item.addEventListener("click", () => {
     snItems.forEach(i => { i.classList.remove("active"); });
     item.classList.add("active"); updateIndicator(item);
+    navClickLock = true;
+    clearTimeout(navClickLockTimer);
+    navClickLockTimer = setTimeout(() => { navClickLock = false; }, 900);
     const target = document.getElementById(item.dataset.target);
     if (target) { const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 80; window.scrollTo({ top: offsetTop, behavior: "smooth" }); }
   });
 });
 
 function goHome() { const homeButton = document.querySelector('.sn-item[data-target="home"]'); if (homeButton) homeButton.click(); }
+
+/* Keep the highlighted nav icon in sync with whichever section is actually on screen
+   (previously it only updated on click, so scrolling manually left it stuck on "Home") */
+const snSections = ["home", "memories", "timeline", "about"].map(id => document.getElementById(id)).filter(Boolean);
+function setActiveNavItem(id) {
+  const target = document.querySelector(`.sn-item[data-target="${id}"]`);
+  if (!target || target.classList.contains("active")) return;
+  snItems.forEach(i => i.classList.remove("active"));
+  target.classList.add("active"); updateIndicator(target);
+}
+if ("IntersectionObserver" in window && snSections.length) {
+  const navObserver = new IntersectionObserver(entries => {
+    if (navClickLock) return;
+    const visible = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    if (visible.length) setActiveNavItem(visible[0].target.id);
+  }, { rootMargin: "-35% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] });
+  snSections.forEach(sec => navObserver.observe(sec));
+}
+
+/* Re-align the sliding highlight bar after resize / orientation change
+   (previously it was only measured once on load, so it drifted out of
+   position after rotating the phone or resizing across the 600px breakpoint) */
+let navResizeTimer = null;
+window.addEventListener("resize", () => {
+  clearTimeout(navResizeTimer);
+  navResizeTimer = setTimeout(() => updateIndicator(document.querySelector(".sn-item.active")), 120);
+});
+window.addEventListener("orientationchange", () => {
+  setTimeout(() => updateIndicator(document.querySelector(".sn-item.active")), 300);
+});
 
 /* ── LOGIN & SESSION SYSTEM ── */
 const CORRECT_PIN = "2309";
@@ -271,6 +306,7 @@ function checkPin() {
     setTimeout(() => { document.getElementById("loginScreen").style.display = "none"; }, 650);
     document.getElementById("sessionTimer").style.display = "flex";
     startSession();
+    handlePostAuthPreloader();
   } else {
     document.getElementById("loginError").classList.add("show");
     const dots = document.getElementById("pinDots"); dots.classList.add("shake");
@@ -315,6 +351,73 @@ function tickSession() {
   }
 }
 function extendSession() { document.getElementById("sessionWarning").classList.remove("show"); clearInterval(warningInterval); startSession(); }
+
+/* ══════════════════════════════════════════════════════════
+   CINEMATIC VIDEO PRELOADER — desktop/tablet only.
+   Triggered ONLY from the successful-PIN branch of checkPin()
+   above. Never touched by the wrong-PIN branch. On mobile
+   (<768px) handlePostAuthPreloader() does nothing, so the site
+   opens exactly as it did before this feature was added.
+   ══════════════════════════════════════════════════════════ */
+const videoPreloader = document.getElementById("videoPreloader");
+const preloaderVideo  = document.getElementById("preloaderVideo");
+let preloaderActive = false;
+
+function handlePostAuthPreloader() {
+  if (window.matchMedia("(min-width: 768px)").matches) {
+    startVideoPreloader();
+  }
+  // Mobile: no preloader — the site is already revealed by the code above.
+}
+
+function removePreloader() {
+  videoPreloader.style.display = "none";
+  videoPreloader.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+function finishPreloader() {
+  if (!preloaderActive) return;
+  preloaderActive = false;
+  videoPreloader.classList.add("exit");
+  let removed = false;
+  const doRemove = () => { if (removed) return; removed = true; removePreloader(); };
+  videoPreloader.addEventListener("transitionend", doRemove, { once: true });
+  setTimeout(doRemove, 1300); // fallback in case transitionend never fires
+}
+
+function startVideoPreloader() {
+  try {
+    preloaderActive = true;
+    document.body.style.overflow = "hidden";
+    videoPreloader.classList.remove("exit");
+    videoPreloader.style.display = "flex";
+    videoPreloader.removeAttribute("aria-hidden");
+
+    // Safety net: the preloader can never get permanently stuck, no matter what goes wrong below
+    const safetyTimer = setTimeout(finishPreloader, 10800);
+    const onDone = () => { clearTimeout(safetyTimer); finishPreloader(); };
+    preloaderVideo.addEventListener("ended", onDone, { once: true });
+    preloaderVideo.addEventListener("error", onDone, { once: true });
+
+    preloaderVideo.src = "preloader.mp4";
+    preloaderVideo.load();
+    preloaderVideo.currentTime = 0;
+
+    const playAttempt = preloaderVideo.play();
+    if (playAttempt && typeof playAttempt.catch === "function") {
+      playAttempt.catch(() => {
+        // Autoplay was blocked by the browser — resume on the next tap.
+        // The safety timer above still guarantees this never gets stuck.
+        const resume = () => { preloaderVideo.play().catch(() => {}); };
+        videoPreloader.addEventListener("click", resume, { once: true });
+      });
+    }
+  } catch (err) {
+    console.error("Video preloader failed to start:", err);
+    finishPreloader();
+  }
+}
 
 /* ── FLOATING LOVE PARTICLES ── */
 function createParticle() {
