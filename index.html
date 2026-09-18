@@ -44,6 +44,12 @@
     </div>
   </div>
 
+  <!-- Cinematic video preloader — desktop/tablet only, shown right after a correct PIN.
+       Kept in the DOM but hidden until startVideoPreloader() in main.js activates it. -->
+  <div class="video-preloader" id="videoPreloader" aria-hidden="true">
+    <video id="preloaderVideo" autoplay muted playsinline webkit-playsinline preload="none"></video>
+  </div>
+
   <div id="sessionTimer"><span class="timer-icon">⏳</span><span id="timerDisplay">10:00</span></div>
   <div id="sessionWarning">
     <div class="warning-card">
